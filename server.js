@@ -3,24 +3,26 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRoutes = require("./routes/auth.js");
+const authRoutes = require("./routes/auth");
+const transactionRoutes = require("./routes/transaction");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Router
+// Marshrutlar
 app.use("/api/auth", authRoutes);
+app.use("/api/transactions", transactionRoutes);
+
 app.get("/", (req, res) => {
   res.send(`
     <html>
       <head>
         <title>PUL backend</title>
-
         <style>
-          body{
+          body {
             background-color: black;
-            color:white;
+            color: white;
           }
         </style>
       </head>
@@ -28,13 +30,12 @@ app.get("/", (req, res) => {
         <center>
           <h1>Pul backend server running</h1>
         </center>
-        <br><br><br>
       </body>
     </html>
-    `);
+  `);
 });
 
-// MongoDB
+// MongoDB ulanish
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,

@@ -12,7 +12,7 @@ const registerUser = async () => {
       },
       body: JSON.stringify({
         username: "test",
-        password: "testpassword",
+        password: "test",
       }),
     });
 
