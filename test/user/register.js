@@ -11,8 +11,8 @@ const registerUser = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: "test",
-        password: "test",
+        username: "test2",
+        password: "test2",
       }),
     });
 
