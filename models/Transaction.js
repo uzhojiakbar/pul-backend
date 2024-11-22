@@ -18,9 +18,14 @@ const transactionSchema = new mongoose.Schema({
     type: Number, // Tranzaktsiya summasi
     required: true,
   },
-  type: {
-    type: String, // "income" yoki "expense"
+  description: {
+    type: String, // Tranzaktsiya summasi
     required: true,
+    default: "-",
+  },
+  type: {
+    type: String, //
+    required: false,
   },
   payment: {
     type: String, // "cash", "card", "dollar"

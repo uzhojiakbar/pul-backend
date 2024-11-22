@@ -2,7 +2,7 @@ const Transaction = require("../models/Transaction");
 
 // Tranzaktsiya qo'shish
 exports.addTransaction = async (req, res) => {
-  const { date, category, amount, type, payment } = req.body;
+  const { date, category, amount, type, payment, description } = req.body;
 
   try {
     const transaction = new Transaction({
@@ -12,6 +12,7 @@ exports.addTransaction = async (req, res) => {
       amount,
       type,
       payment,
+      description,
     });
 
     await transaction.save();
