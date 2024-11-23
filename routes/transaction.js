@@ -1,16 +1,14 @@
 const express = require("express");
-const {
-  addTransaction,
-  getTransactions,
-} = require("../controllers/transactionController");
+const router = express.Router();
+const transactionController = require("../controllers/transactionController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-const router = express.Router();
-
-// POST: Tranzaktsiya qo'shish
-router.post("/add", authMiddleware, addTransaction);
-
-// GET: Tranzaktsiyalarni olish
-router.get("/", authMiddleware, getTransactions);
+router.get("/", authMiddleware, transactionController.getTransactions);
+router.post("/", authMiddleware, transactionController.addTransaction);
+router.delete(
+  "/delete-all",
+  authMiddleware,
+  transactionController.deleteAllTransactions
+);
 
 module.exports = router;

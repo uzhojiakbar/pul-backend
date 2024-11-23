@@ -1,12 +1,10 @@
 const express = require("express");
-const { getCategories, createCategory, deleteCategory } = require("../controllers/categoryController");
+const router = express.Router();
+const categoryController = require("../controllers/categoryController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-const router = express.Router();
-
-// Kategoriyalarni boshqarish uchun marshrutlar
-router.get("/", authMiddleware, getCategories);
-router.post("/", authMiddleware, createCategory);
-router.delete("/:id", authMiddleware, deleteCategory);
+router.get("/", authMiddleware, categoryController.getCategories);
+router.post("/", authMiddleware, categoryController.createCategory);
+router.delete("/:id", authMiddleware, categoryController.deleteCategory);
 
 module.exports = router;

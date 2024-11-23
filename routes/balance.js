@@ -1,16 +1,11 @@
 const express = require("express");
-const {
-  getBalance,
-  updateBalance,
-} = require("../controllers/balanceController");
+const router = express.Router();
+const balanceController = require("../controllers/balanceController");
+const { updateBalance } = require("../controllers/balanceController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-const router = express.Router();
-
-// Balansni olish
-router.get("/", authMiddleware, getBalance);
-
-// Balansni yaratish yoki yangilash
-router.post("/", authMiddleware, updateBalance);
+router.get("/", authMiddleware, balanceController.getBalance);
+router.put("/", authMiddleware, updateBalance);
+router.post("/adjust", authMiddleware, balanceController.adjustBalance);
 
 module.exports = router;

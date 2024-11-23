@@ -2,10 +2,14 @@ const Category = require("../models/Category");
 
 // Kategoriyalarni olish
 exports.getCategories = async (req, res) => {
+  const { type } = req.query; // "income" yoki "expense"
   try {
-    const categories = await Category.find({ userId: req.user.id });
-    res.json(categories);
+    const filters = { userId: req.user.id };
+    if (type) filters.type = type; // Turi bo‘yicha filter
+    const categories = await Category.find(filters);
+    res.status(200).json(categories);
   } catch (error) {
+    console.error(error);
     res
       .status(500)
       .json({ error: "Kategoriyalarni olishda xatolik yuz berdi." });
@@ -14,19 +18,20 @@ exports.getCategories = async (req, res) => {
 
 // Kategoriya qo'shish
 exports.createCategory = async (req, res) => {
-  const { name } = req.body;
+  const { name, type = "income" } = req.body;
 
-  if (!name) {
+  if (!name || !["income", "expense"].includes(type)) {
     return res
       .status(400)
-      .json({ error: "Kategoriya nomi bo‘sh bo‘lmasligi kerak." });
+      .json({ error: "Kategoriya nomi va turi noto‘g‘ri." });
   }
 
   try {
-    const newCategory = new Category({ name, userId: req.user.id });
+    const newCategory = new Category({ name, type, userId: req.user.id });
     await newCategory.save();
     res.status(201).json(newCategory);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Kategoriya qo‘shishda xatolik yuz berdi." });
   }
 };
@@ -39,6 +44,7 @@ exports.deleteCategory = async (req, res) => {
     await Category.findOneAndDelete({ _id: id, userId: req.user.id });
     res.json({ message: "Kategoriya muvaffaqiyatli o‘chirildi." });
   } catch (error) {
+    console.error(error);
     res
       .status(500)
       .json({ error: "Kategoriya o‘chirishda xatolik yuz berdi." });

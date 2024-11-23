@@ -1,40 +1,19 @@
-// {
-//     "date": "2024-11-21",
-//     "category": "Food",
-//     "amount": 500000,
-//     "type": "expense",
-//     "payment": "cash"
-//   }
-
-fetch("http://localhost:5000/api/transactions/add", {
+fetch("http://localhost:5000/api/transactions", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2Y5ZWFkZjdjYjMyMjQ3MDY3NTAzMSIsInVzZXJuYW1lIjoidGVzdCIsImlhdCI6MTczMjIyMzA5NSwiZXhwIjoxNzMyMjMzODk1fQ.0Mfg-ttADi-qVw1zo6cnpQFNY5wpaDBJvKdLcxpiWAg",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDEyNmY2NmI1NDMyYmM1YWRkMmYyMyIsInVzZXJuYW1lIjoib3Bpc2lzIiwiaWF0IjoxNzMyMzU2OTI5LCJleHAiOjE3MzIzNjc3Mjl9.Y4N2hBW_XULSZ4ujz0ml-bSSb2wN0ckT0PDO4X2QcvI",
   },
   body: JSON.stringify({
-    date: "2024-11-21",
-    category: "Food",
-    amount: 500000,
-    type: "expense",
-    payment: "cash",
+    category: "Transport xarajatlari",
+    amount: 50000,
+    description: "Taxi",
+    type: "expense", // or "income"
+    payment: "UZS", // UZS or USD
+    typeMoney: "karta", // karta or naqt
   }),
 })
   .then((response) => response.json())
-  .then((data) => console.log(data))
+  .then((data) => console.log("New Transaction:", data))
   .catch((error) => console.error("Error:", error));
-
-//   {
-//     "message": "Tranzaktsiya muvaffaqiyatli qo'shildi",
-//     "transaction": {
-//       "user": "63f9eadf7cb322470675031",
-//       "date": "2024-11-21",
-//       "category": "Food",
-//       "amount": 500000,
-//       "type": "expense",
-//       "payment": "cash",
-//       "_id": "63f9fda9e8d06e1234567890",
-//       "__v": 0
-//     }
-//   }

@@ -1,4 +1,4 @@
-fetch("http://localhost:5000/api/categories", {
+fetch("http://localhost:5000/api/balance/adjust", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -6,10 +6,11 @@ fetch("http://localhost:5000/api/categories", {
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDEyNmY2NmI1NDMyYmM1YWRkMmYyMyIsInVzZXJuYW1lIjoib3Bpc2lzIiwiaWF0IjoxNzMyMzcxMjg3LCJleHAiOjE3MzIzODIwODd9.mb85j8rTpdY1YwzteS69Z6xCpaRBSzSjUr7eDiizPQU",
   },
   body: JSON.stringify({
-    name: "Food",
-    type: "expense", // or "expense"
+    amount: 10000,
+    currency: "UZS", // yoki "USD"
+    type: "income", // yoki "expense"
   }),
 })
   .then((response) => response.json())
-  .then((data) => console.log("New Category:", data))
+  .then((data) => console.log("Adjusted Balance:", data))
   .catch((error) => console.error("Error:", error));

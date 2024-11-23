@@ -4,7 +4,12 @@ const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: false, // Har bir foydalanuvchi uchun alohida
+  },
+  type: {
+    type: String,
+    enum: ["income", "expense"], // Kategoriya turi
+    default: "income",
+    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

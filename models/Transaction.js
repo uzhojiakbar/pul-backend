@@ -4,7 +4,7 @@ const transactionSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true, // `user` maydoni talab qilinadi
+    required: true,
   },
   date: {
     type: Date,
@@ -27,12 +27,18 @@ const transactionSchema = new mongoose.Schema({
     enum: ["income", "expense"],
     required: true,
   },
+  typeMoney: {
+    type: String,
+    enum: ["naqt", "karta"],
+    required: true,
+  },
   payment: {
     type: String,
-    enum: ["UZS", "USD", "KARTA"],
+    enum: ["UZS", "USD"],
     required: true,
   },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
+
 module.exports = Transaction;
