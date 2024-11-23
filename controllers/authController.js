@@ -1,4 +1,5 @@
 const User = require("../models/User.js");
+const Balance = require("../models/Balance.js"); // Balance modelini import qilish
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -6,20 +7,35 @@ exports.register = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res
+    return res
       .status(400)
-      .json({ message: "Kerakli malumotlarni hammasi yuborilmagan!" });
+      .json({ message: "Kerakli ma'lumotlarni hammasi yuborilmagan!" });
   }
 
   const user = await User.findOne({ username });
   if (user) return res.status(400).json({ error: "Foydalanuvchi mavjud" });
 
   try {
+    // Foydalanuvchini yaratish
     const newUser = new User({
       username,
       password,
     });
     await newUser.save();
+
+    // Foydalanuvchi uchun bo'sh balans yozuvi yaratish
+    const newBalance = new Balance({
+      userId: newUser._id,
+      all: {
+        uzs: 0,
+        usd: 0,
+      },
+      uzs: 0,
+      usd: 0,
+      card: 0,
+    });
+    await newBalance.save();
+
     res
       .status(201)
       .json({ message: "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi" });
