@@ -3,32 +3,33 @@ const mongoose = require("mongoose");
 const transactionSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Foydalanuvchi bilan bog'lash
-    required: true,
+    ref: "User",
+    required: true, // `user` maydoni talab qilinadi
   },
   date: {
-    type: String, // Sana, masalan "2024-11-21"
+    type: Date,
     required: true,
   },
   category: {
-    type: String, // Tranzaktsiya turi: "Food", "Salary" va boshqalar
+    type: String,
     required: true,
   },
   amount: {
-    type: Number, // Tranzaktsiya summasi
+    type: Number,
     required: true,
   },
   description: {
-    type: String, // Tranzaktsiya summasi
-    required: true,
-    default: "-",
+    type: String,
+    default: "",
   },
   type: {
-    type: String, //
-    required: false,
+    type: String,
+    enum: ["income", "expense"],
+    required: true,
   },
   payment: {
-    type: String, // "cash", "card", "dollar"
+    type: String,
+    enum: ["UZS", "USD", "KARTA"],
     required: true,
   },
 });
