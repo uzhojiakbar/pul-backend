@@ -11,6 +11,9 @@ const categorySchema = new mongoose.Schema({
     default: "income",
     required: true,
   },
+  emoji: {
+    type: String,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

@@ -18,7 +18,7 @@ exports.getCategories = async (req, res) => {
 
 // Kategoriya qo'shish
 exports.createCategory = async (req, res) => {
-  const { name, type = "income" } = req.body;
+  const { name, type = "income", emoji } = req.body;
 
   if (!name || !["income", "expense"].includes(type)) {
     return res
@@ -27,7 +27,12 @@ exports.createCategory = async (req, res) => {
   }
 
   try {
-    const newCategory = new Category({ name, type, userId: req.user.id });
+    const newCategory = new Category({
+      name,
+      type,
+      userId: req.user.id,
+      emoji,
+    });
     await newCategory.save();
     res.status(201).json(newCategory);
   } catch (error) {
